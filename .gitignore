@@ -1,0 +1,25 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temp
+*.log
+npm-debug.log*
+.cache/
+tmp/
+temp/
+
+# Node (if added later)
+node_modules/
+package-lock.json
+
+# Local env / secrets
+.env
+.env.*
