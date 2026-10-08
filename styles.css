@@ -158,3 +158,23 @@ body {
   .key.fn { font-size: min(8vw, 32px); }
   .key.op { font-size: min(10.5vw, 44px); }
 }
+
+.mode-link {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top));
+  left: max(14px, env(safe-area-inset-left));
+  z-index: 20;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.mode-link:hover { background: rgba(255,255,255,0.18); }
+.mode-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
