@@ -1,0 +1,160 @@
+:root {
+  --gap: 14px;
+  --pad: 18px;
+  --light: #a5a5a5;
+  --light-press: #d9d9d9;
+  --dark: #333333;
+  --dark-press: #737373;
+  --orange: #ff9f0a;
+  --orange-press: #fcc88e;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: radial-gradient(ellipse at top, #2a2a2e 0%, #121214 55%, #050505 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* Phone-sized frame on larger screens */
+.phone {
+  position: relative;
+  width: 375px;
+  height: min(812px, calc(100vh - 32px));
+  min-height: 600px;
+  background: #000;
+  border-radius: 48px;
+  box-shadow:
+    0 0 0 10px #1c1c1e,
+    0 0 0 11px #3a3a3c,
+    0 30px 80px rgba(0,0,0,.7);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.calc {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 var(--pad) calc(var(--pad) + 16px);
+}
+
+.display {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0 8px 6px;
+  min-height: 120px;
+  overflow: hidden;
+}
+.display-text {
+  font-weight: 200;
+  font-size: 88px;
+  line-height: 1;
+  letter-spacing: -1px;
+  white-space: nowrap;
+  transform-origin: right bottom;
+  cursor: default;
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+.key {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  font-family: inherit;
+  font-size: 36px;
+  font-weight: 400;
+  color: #fff;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  touch-action: manipulation;
+  /* slow fade back on release, like iOS */
+  transition: background-color .45s ease, color .2s ease;
+}
+.key:focus-visible { box-shadow: 0 0 0 2px rgba(255,255,255,.5); }
+.key.fn  { background: var(--light); color: #000; font-size: 30px; font-weight: 500; }
+.key.op  { background: var(--orange); font-size: 40px; font-weight: 400; }
+.key.op svg { width: 34%; height: 34%; }
+.key.zero {
+  grid-column: span 2;
+  aspect-ratio: auto;
+  border-radius: 999px;
+  justify-content: flex-start;
+  padding-left: 13%;
+}
+
+/* pressed (instant), released fades back via transition */
+.key:active, .key.pressed { transition: none; }
+.key.num:active, .key.num.pressed { background: var(--dark-press); }
+.key.fn:active,  .key.fn.pressed  { background: var(--light-press); }
+.key.op:active,  .key.op.pressed  { background: var(--orange-press); }
+
+/* selected operator: inverted */
+.key.op.active { background: #fff; color: var(--orange); transition: background-color .2s ease, color .2s ease; }
+.key.op.active:active, .key.op.active.pressed { background: #f1e1cc; }
+
+.key .sym { display: inline-block; line-height: 1; }
+.key.fn .pm { font-size: 26px; letter-spacing: -1px; }
+
+.home-bar {
+  position: absolute;
+  left: 50%; bottom: 8px;
+  width: 134px; height: 5px;
+  margin-left: -67px;
+  border-radius: 3px;
+  background: #fff;
+  opacity: .9;
+}
+.status {
+  height: 50px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 32px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.status .icons { display: flex; gap: 6px; align-items: center; }
+
+/* Fill the screen on a real phone */
+@media (max-width: 500px) {
+  body { background: #000; }
+  .phone {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .status, .home-bar { display: none; }
+  .calc {
+    padding: env(safe-area-inset-top) calc(var(--pad) + env(safe-area-inset-right))
+             calc(var(--pad) + 18px + env(safe-area-inset-bottom)) calc(var(--pad) + env(safe-area-inset-left));
+  }
+  .key { font-size: min(9vw, 38px); }
+  .key.fn { font-size: min(8vw, 32px); }
+  .key.op { font-size: min(10.5vw, 44px); }
+}
