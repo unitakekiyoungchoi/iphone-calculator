@@ -1113,8 +1113,8 @@
     var wantX = 0;
     var wantY = 0;
     if (mouseTilt && !dragging) {
-      wantX = -mouseNY * 0.12;
-      wantY = -mouseNX * 0.16;
+      wantX = -mouseNY * 0.06;
+      wantY = -mouseNX * 0.07;
     }
     tiltX = THREE.MathUtils.damp(tiltX, wantX, 4.5, dt);
     tiltY = THREE.MathUtils.damp(tiltY, wantY, 4.5, dt);
